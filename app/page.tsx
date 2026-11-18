@@ -8,14 +8,14 @@ import Menu from "@/components/Menu";
 import Delivery from "@/components/Delivery";
 import Contacts from "@/components/Contacts";
 import BookingModal from "@/components/BookingModal";
-import { type MenuItem } from "@/data/cafeData";
+import { type MenuItem, type CartEntry } from "@/data/cafeData";
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"booking" | "banquet">("booking");
   const [year, setYear] = useState(2026);
   useEffect(() => { setYear(new Date().getFullYear()); }, []);
-  const [cartItems, setCartItems] = useState<MenuItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartEntry[]>([]);
 
   const openModal = (type: "booking" | "banquet" = "booking") => {
     setModalType(type);
@@ -28,13 +28,22 @@ export default function Home() {
 
   const addToCart = (item: MenuItem) => {
     setCartItems((prev) => {
-      if (prev.some((i) => i.id === item.id)) return prev;
-      return [...prev, item];
+      const existing = prev.find((e) => e.item.id === item.id);
+      if (existing) return prev.map((e) => e.item.id === item.id ? { ...e, qty: e.qty + 1 } : e);
+      return [...prev, { item, qty: 1 }];
     });
   };
 
   const removeFromCart = (id: number) => {
-    setCartItems((prev) => prev.filter((i) => i.id !== id));
+    setCartItems((prev) => {
+      const existing = prev.find((e) => e.item.id === id);
+      if (existing && existing.qty > 1) return prev.map((e) => e.item.id === id ? { ...e, qty: e.qty - 1 } : e);
+      return prev.filter((e) => e.item.id !== id);
+    });
+  };
+
+  const removeAllFromCart = (id: number) => {
+    setCartItems((prev) => prev.filter((e) => e.item.id !== id));
   };
 
   const clearCart = () => setCartItems([]);
@@ -47,11 +56,12 @@ export default function Home() {
         onBanquetScroll={scrollToBanquet}
       />
       <Banquet onBookingOpen={openModal} />
-      <Menu cartItems={cartItems} onAddToCart={addToCart} />
+      <Menu cartItems={cartItems} onAddToCart={addToCart} onRemoveFromCart={removeFromCart} />
       <Delivery
         cartItems={cartItems}
         onAddToCart={addToCart}
         onRemoveFromCart={removeFromCart}
+        onRemoveAllFromCart={removeAllFromCart}
         onClearCart={clearCart}
       />
       <Contacts />
@@ -84,7 +94,7 @@ export default function Home() {
         >
           <span className="text-lg">🛒</span>
           <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#d4a853] text-[#1a1410] text-xs font-bold flex items-center justify-center font-sans">
-            {cartItems.length}
+            {cartItems.reduce((sum, e) => sum + e.qty, 0)}
           </span>
         </button>
       )}

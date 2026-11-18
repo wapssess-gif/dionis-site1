@@ -29,6 +29,11 @@ export type MenuCategory =
   | "vegan"
   | "bar";
 
+export interface CartEntry {
+  item: MenuItem;
+  qty: number;
+}
+
 export interface MenuItem {
   id: number;
   name: string;

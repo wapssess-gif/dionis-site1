@@ -1,12 +1,13 @@
 "use client";
 
 import { Truck, Package, Clock, Minus, Plus, Trash2, ShoppingBag, X } from "lucide-react";
-import { deliveryInfo, type MenuItem } from "@/data/cafeData";
+import { deliveryInfo, type CartEntry } from "@/data/cafeData";
 
 interface DeliveryProps {
-  cartItems: MenuItem[];
-  onAddToCart: (item: MenuItem) => void;
+  cartItems: CartEntry[];
+  onAddToCart: (item: CartEntry["item"]) => void;
   onRemoveFromCart: (id: number) => void;
+  onRemoveAllFromCart: (id: number) => void;
   onClearCart: () => void;
 }
 
@@ -14,9 +15,10 @@ export default function Delivery({
   cartItems,
   onAddToCart,
   onRemoveFromCart,
+  onRemoveAllFromCart,
   onClearCart,
 }: DeliveryProps) {
-  const totalSum = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const totalSum = cartItems.reduce((sum, e) => sum + e.item.price * e.qty, 0);
   const deliveryCost =
     totalSum >= deliveryInfo.freeDeliveryFrom ? 0 : deliveryInfo.deliveryPrice;
   const grandTotal = totalSum + deliveryCost;
@@ -167,7 +169,7 @@ export default function Delivery({
             ) : (
               <>
                 <div className="space-y-3 mb-6 max-h-72 overflow-y-auto pr-1">
-                  {cartItems.map((item) => (
+                  {cartItems.map(({ item, qty }) => (
                     <div
                       key={item.id}
                       className="flex items-center gap-3 p-3 rounded-xl bg-[#1e1612] border border-[#3d2b1f]"
@@ -188,12 +190,27 @@ export default function Delivery({
                           {item.name}
                         </p>
                         <p className="text-[#d4a853] font-sans text-sm">
-                          {item.price} ₴
+                          {item.price * qty} ₴
                         </p>
                       </div>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <button
+                          onClick={() => onRemoveFromCart(item.id)}
+                          className="w-6 h-6 rounded-full bg-[#2a2420] hover:bg-[#c0603a]/30 text-[#f5ede0]/50 hover:text-[#c0603a] flex items-center justify-center transition-colors"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="text-[#f5ede0] font-bold font-sans text-sm w-5 text-center">{qty}</span>
+                        <button
+                          onClick={() => onAddToCart(item)}
+                          className="w-6 h-6 rounded-full bg-[#2a2420] hover:bg-[#c0603a]/30 text-[#f5ede0]/50 hover:text-[#c0603a] flex items-center justify-center transition-colors"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                       <button
-                        onClick={() => onRemoveFromCart(item.id)}
-                        className="p-1.5 rounded-full hover:bg-[#c0603a]/20 text-[#f5ede0]/40 hover:text-[#c0603a] transition-colors"
+                        onClick={() => onRemoveAllFromCart(item.id)}
+                        className="p-1.5 rounded-full hover:bg-[#c0603a]/20 text-[#f5ede0]/30 hover:text-[#c0603a] transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
