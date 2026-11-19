@@ -23,27 +23,27 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
     setActivePhoto((p) => (p + 1) % banquetInfo.gallery.length);
 
   return (
-    <section id="banquet" className="py-20 bg-[#1e1612] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-72 h-72 bg-[#c0603a]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#d4a853]/5 rounded-full blur-3xl" />
+    <section id="banquet" className="py-20 bg-[#FAF6F0] relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-72 h-72 bg-[#C59B48]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C59B48]/4 rounded-full blur-3xl" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#d4a853]/30 bg-[#d4a853]/10 text-[#d4a853] text-sm font-sans mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C59B48]/40 bg-[#FBF5E8] text-[#C59B48] text-sm font-sans mb-4">
             <Star className="w-4 h-4" />
             <span>Святкування</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#f5ede0] mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-[#141414] mb-4">
             Банкети та урочистості
           </h2>
-          <p className="text-[#f5ede0]/60 text-lg max-w-2xl mx-auto font-sans">
+          <p className="text-[#6B6B6B] text-lg max-w-2xl mx-auto font-sans">
             {banquetInfo.description}
           </p>
         </div>
 
         {/* Photo gallery */}
-        <div className="mb-12 rounded-2xl overflow-hidden relative h-72 sm:h-96 group">
+        <div className="mb-12 rounded-2xl overflow-hidden relative h-72 sm:h-96 group shadow-lg shadow-[#C59B48]/10">
           <Image
             src={banquetInfo.gallery[activePhoto].src}
             alt={banquetInfo.gallery[activePhoto].alt}
@@ -51,7 +51,7 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
             className="object-cover transition-all duration-500"
             sizes="(max-width: 1280px) 100vw, 1152px"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1410]/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
           {/* Dots */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
@@ -59,8 +59,8 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
               <button
                 key={i}
                 onClick={() => setActivePhoto(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                  i === activePhoto ? "bg-[#d4a853] w-6" : "bg-white/40"
+                className={`h-2 rounded-full transition-all duration-200 ${
+                  i === activePhoto ? "bg-[#C59B48] w-6" : "bg-white/60 w-2"
                 }`}
               />
             ))}
@@ -69,19 +69,19 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
           {/* Arrows */}
           <button
             onClick={prevPhoto}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-[#141414] flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shadow-md"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={nextPhoto}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-[#141414] flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shadow-md"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
 
           {/* Caption */}
-          <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/50 text-white/80 font-sans text-xs">
+          <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-white/80 text-[#141414] font-sans text-xs font-semibold">
             {activePhoto + 1} / {banquetInfo.gallery.length}
           </div>
         </div>
@@ -89,16 +89,16 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           {/* Features */}
           <div>
-            <div className="rounded-2xl border border-[#d4a853]/20 bg-[#2a1e14]/60 p-8 mb-6">
+            <div className="rounded-2xl border border-[#E5D9C5] bg-white p-8 mb-6 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-[#c0603a]/20 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-[#c0603a]" />
+                <div className="w-12 h-12 rounded-full bg-[#FBF5E8] flex items-center justify-center">
+                  <Users className="w-6 h-6 text-[#C59B48]" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-[#f5ede0]">
+                  <h3 className="text-xl font-bold text-[#141414]">
                     Зал до 50 гостей
                   </h3>
-                  <p className="text-[#f5ede0]/50 font-sans text-sm">
+                  <p className="text-[#6B6B6B] font-sans text-sm">
                     Весілля, ювілеї, корпоративи
                   </p>
                 </div>
@@ -107,37 +107,37 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
                 {banquetInfo.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-2 text-[#f5ede0]/80 font-sans text-sm"
+                    className="flex items-center gap-2 text-[#3A3A3A] font-sans text-sm"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-[#d4a853] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#C59B48] shrink-0" />
                     {feature}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-[#c0603a]/10 border border-[#c0603a]/30">
-              <Music className="w-5 h-5 text-[#c0603a] shrink-0" />
-              <p className="text-[#f5ede0]/80 font-sans text-sm">
-                <strong className="text-[#f5ede0]">Жива музика</strong> —
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-[#FBF5E8] border border-[#E5D9C5]">
+              <Music className="w-5 h-5 text-[#C59B48] shrink-0" />
+              <p className="text-[#3A3A3A] font-sans text-sm">
+                <strong className="text-[#141414]">Жива музика</strong> —
                 запрошені виконавці, власний підбір репертуару під ваш захід
               </p>
             </div>
           </div>
 
           {/* Calculator */}
-          <div className="rounded-2xl border border-[#d4a853]/30 bg-[#2a1e14]/80 p-8">
-            <h3 className="text-xl font-bold text-[#f5ede0] mb-6 flex items-center gap-2">
-              <CalendarCheck className="w-5 h-5 text-[#d4a853]" />
+          <div className="rounded-2xl border border-[#E5D9C5] bg-white p-8 shadow-sm">
+            <h3 className="text-xl font-bold text-[#141414] mb-6 flex items-center gap-2">
+              <CalendarCheck className="w-5 h-5 text-[#C59B48]" />
               Калькулятор вартості
             </h3>
 
             <div className="mb-6">
               <div className="flex justify-between items-center mb-3">
-                <label className="text-[#f5ede0]/80 font-sans text-sm font-medium">
+                <label className="text-[#3A3A3A] font-sans text-sm font-medium">
                   Кількість гостей
                 </label>
-                <span className="text-2xl font-bold text-[#d4a853]">{guests}</span>
+                <span className="text-2xl font-bold text-[#C59B48]">{guests}</span>
               </div>
               <input
                 type="range"
@@ -145,27 +145,27 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
                 max={banquetInfo.capacity}
                 value={guests}
                 onChange={(e) => setGuests(Number(e.target.value))}
-                className="w-full h-2 rounded-full appearance-none cursor-pointer accent-[#d4a853]"
+                className="w-full h-2 rounded-full appearance-none cursor-pointer accent-[#C59B48]"
                 style={{
-                  background: `linear-gradient(to right, #d4a853 ${
+                  background: `linear-gradient(to right, #C59B48 ${
                     ((guests - banquetInfo.minGuests) /
                       (banquetInfo.capacity - banquetInfo.minGuests)) *
                     100
-                  }%, #3d2b1f ${
+                  }%, #E5D9C5 ${
                     ((guests - banquetInfo.minGuests) /
                       (banquetInfo.capacity - banquetInfo.minGuests)) *
                     100
                   }%)`,
                 }}
               />
-              <div className="flex justify-between text-[#f5ede0]/40 font-sans text-xs mt-1">
+              <div className="flex justify-between text-[#6B6B6B] font-sans text-xs mt-1">
                 <span>{banquetInfo.minGuests}</span>
                 <span>{banquetInfo.capacity}</span>
               </div>
             </div>
 
             <div className="mb-8">
-              <label className="text-[#f5ede0]/80 font-sans text-sm font-medium block mb-3">
+              <label className="text-[#3A3A3A] font-sans text-sm font-medium block mb-3">
                 Тип меню
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -175,30 +175,30 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
                     onClick={() => setMenuType(option.id as "standard" | "premium")}
                     className={`p-4 rounded-xl border transition-all duration-200 text-left ${
                       menuType === option.id
-                        ? "border-[#d4a853] bg-[#d4a853]/10"
-                        : "border-[#3d2b1f] bg-[#1a1410]/50 hover:border-[#d4a853]/40"
+                        ? "border-[#C59B48] bg-[#FBF5E8]"
+                        : "border-[#E5D9C5] bg-white hover:border-[#C59B48]/50"
                     }`}
                   >
-                    <div className="font-bold text-[#f5ede0] text-sm mb-1">{option.label}</div>
-                    <div className="text-[#d4a853] font-sans text-xs font-semibold mb-1">
+                    <div className="font-bold text-[#141414] text-sm mb-1">{option.label}</div>
+                    <div className="text-[#C59B48] font-sans text-xs font-semibold mb-1">
                       {option.pricePerPerson} грн/особа
                     </div>
-                    <div className="text-[#f5ede0]/50 font-sans text-xs">{option.description}</div>
+                    <div className="text-[#6B6B6B] font-sans text-xs">{option.description}</div>
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-xl bg-[#d4a853]/10 border border-[#d4a853]/30 p-5 mb-6">
+            <div className="rounded-xl bg-[#FBF5E8] border border-[#E5D9C5] p-5 mb-6">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="text-[#f5ede0]/60 font-sans text-sm">Орієнтовна вартість</p>
-                  <p className="text-[#f5ede0]/50 font-sans text-xs mt-0.5">
+                  <p className="text-[#6B6B6B] font-sans text-sm">Орієнтовна вартість</p>
+                  <p className="text-[#6B6B6B] font-sans text-xs mt-0.5">
                     {guests} гостей × {selectedMenu.pricePerPerson} грн
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-3xl font-bold text-[#d4a853]">
+                  <p className="text-3xl font-bold text-[#C59B48]">
                     {totalCost.toLocaleString("uk-UA")} ₴
                   </p>
                 </div>
@@ -207,7 +207,7 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
 
             <button
               onClick={() => onBookingOpen("banquet")}
-              className="w-full py-4 rounded-full bg-[#c0603a] hover:bg-[#d4a853] text-white font-sans font-bold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#d4a853]/20"
+              className="w-full py-4 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#C59B48]/20"
             >
               Залишити заявку на дату
             </button>

@@ -67,9 +67,9 @@ export default function Home() {
       <Contacts />
 
       {/* Footer */}
-      <footer className="bg-[#0d0a08] border-t border-[#2a2420] py-8">
+      <footer className="bg-[#141414] border-t border-[#2A2A2A] py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-[#f5ede0]/30 font-sans text-sm">
+          <p className="text-white/40 font-sans text-sm">
             © {year} Кафе «Діоніс», Коломия. Всі права
             захищено.
           </p>
@@ -90,10 +90,10 @@ export default function Home() {
               .querySelector("#delivery")
               ?.scrollIntoView({ behavior: "smooth" })
           }
-          className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#c0603a] hover:bg-[#d4a853] text-white shadow-xl shadow-[#c0603a]/30 flex items-center justify-center transition-all duration-200 hover:scale-110"
+          className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white shadow-xl shadow-black/20 flex items-center justify-center transition-all duration-200 hover:scale-110"
         >
           <span className="text-lg">🛒</span>
-          <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#d4a853] text-[#1a1410] text-xs font-bold flex items-center justify-center font-sans">
+          <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#C59B48] text-white text-xs font-bold flex items-center justify-center font-sans">
             {cartItems.reduce((sum, e) => sum + e.qty, 0)}
           </span>
         </button>

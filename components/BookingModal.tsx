@@ -51,23 +51,23 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
       className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative modal-content w-full max-w-md rounded-3xl border border-[#d4a853]/30 bg-[#1e1612] shadow-2xl shadow-black/50 overflow-hidden">
+      <div className="relative modal-content w-full max-w-md rounded-3xl border border-[#E5D9C5] bg-white shadow-2xl shadow-black/15 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-[#3d2b1f]">
+        <div className="flex items-center justify-between p-6 border-b border-[#E5D9C5]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#d4a853]/20 flex items-center justify-center">
-              <Wine className="w-5 h-5 text-[#d4a853]" />
+            <div className="w-10 h-10 rounded-full bg-[#FBF5E8] flex items-center justify-center">
+              <Wine className="w-5 h-5 text-[#C59B48]" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-[#f5ede0]">{title}</h2>
-              <p className="text-[#f5ede0]/50 font-sans text-xs mt-0.5">{subtitle}</p>
+              <h2 className="text-xl font-bold text-[#141414]">{title}</h2>
+              <p className="text-[#6B6B6B] font-sans text-xs mt-0.5">{subtitle}</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-[#2a2420] text-[#f5ede0]/50 hover:text-[#f5ede0] transition-colors"
+            className="p-2 rounded-full hover:bg-[#FAF6F0] text-[#6B6B6B] hover:text-[#141414] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -77,16 +77,16 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
         <div className="p-6">
           {submitted ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 rounded-full bg-[#5a7a4a]/20 border border-[#5a7a4a]/40 flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 rounded-full bg-[#FBF5E8] border border-[#E5D9C5] flex items-center justify-center mx-auto mb-4">
                 <span className="text-3xl">✓</span>
               </div>
-              <h3 className="text-xl font-bold text-[#f5ede0] mb-2">Заявку отримано!</h3>
-              <p className="text-[#f5ede0]/60 font-sans text-sm mb-6">
+              <h3 className="text-xl font-bold text-[#141414] mb-2">Заявку отримано!</h3>
+              <p className="text-[#6B6B6B] font-sans text-sm mb-6">
                 Ми зателефонуємо вам найближчим часом для підтвердження.
               </p>
               <button
                 onClick={onClose}
-                className="px-8 py-3 rounded-full bg-[#c0603a] hover:bg-[#d4a853] text-white font-sans font-bold transition-colors"
+                className="px-8 py-3 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold transition-colors"
               >
                 Закрити
               </button>
@@ -95,8 +95,8 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name */}
               <div>
-                <label className="text-[#f5ede0]/70 font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                  <User className="w-3.5 h-3.5 text-[#d4a853]" />
+                <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
+                  <User className="w-3.5 h-3.5 text-[#C59B48]" />
                   Ваше ім'я *
                 </label>
                 <input
@@ -105,14 +105,14 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
                   placeholder="Введіть ваше ім'я"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1a1410] border border-[#3d2b1f] text-[#f5ede0] font-sans text-sm placeholder-[#f5ede0]/30 focus:border-[#d4a853]/60 outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
                 />
               </div>
 
               {/* Phone */}
               <div>
-                <label className="text-[#f5ede0]/70 font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#d4a853]" />
+                <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
+                  <Phone className="w-3.5 h-3.5 text-[#C59B48]" />
                   Телефон *
                 </label>
                 <input
@@ -121,15 +121,15 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
                   placeholder="+38 (0XX) XXX-XX-XX"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1a1410] border border-[#3d2b1f] text-[#f5ede0] font-sans text-sm placeholder-[#f5ede0]/30 focus:border-[#d4a853]/60 outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
                 />
               </div>
 
               {/* Date + Guests */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#f5ede0]/70 font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-[#d4a853]" />
+                  <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-[#C59B48]" />
                     Дата *
                   </label>
                   <input
@@ -137,13 +137,13 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
                     required
                     value={form.date}
                     onChange={(e) => setForm({ ...form, date: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#1a1410] border border-[#3d2b1f] text-[#f5ede0] font-sans text-sm focus:border-[#d4a853]/60 outline-none transition-colors"
-                    style={{ colorScheme: "dark" }}
+                    className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
+                    style={{ colorScheme: "light" }}
                   />
                 </div>
                 <div>
-                  <label className="text-[#f5ede0]/70 font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                    <Users className="w-3.5 h-3.5 text-[#d4a853]" />
+                  <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
+                    <Users className="w-3.5 h-3.5 text-[#C59B48]" />
                     Гостей *
                   </label>
                   <input
@@ -154,15 +154,15 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
                     placeholder="10"
                     value={form.guests}
                     onChange={(e) => setForm({ ...form, guests: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#1a1410] border border-[#3d2b1f] text-[#f5ede0] font-sans text-sm placeholder-[#f5ede0]/30 focus:border-[#d4a853]/60 outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
                   />
                 </div>
               </div>
 
               {/* Comment */}
               <div>
-                <label className="text-[#f5ede0]/70 font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-[#d4a853]" />
+                <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
+                  <MessageSquare className="w-3.5 h-3.5 text-[#C59B48]" />
                   Коментар
                 </label>
                 <textarea
@@ -170,13 +170,13 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
                   placeholder="Побажання, привід, час бронювання..."
                   value={form.comment}
                   onChange={(e) => setForm({ ...form, comment: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1a1410] border border-[#3d2b1f] text-[#f5ede0] font-sans text-sm placeholder-[#f5ede0]/30 focus:border-[#d4a853]/60 outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-full bg-[#c0603a] hover:bg-[#d4a853] text-white font-sans font-bold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#d4a853]/20 mt-2"
+                className="w-full py-4 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#C59B48]/20 mt-2"
               >
                 {type === "banquet" ? "Залишити заявку" : "Забронювати стіл"}
               </button>

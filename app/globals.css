@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1a1410;
-  --foreground: #f5ede0;
-  --graphite: #2a2420;
-  --brown: #3d2b1f;
-  --terracotta: #c0603a;
-  --gold: #d4a853;
-  --gold-light: #e8c97a;
-  --cream: #f5ede0;
-  --muted: #9a8070;
+  --background: #FFFFFF;
+  --bg-secondary: #FAF6F0;
+  --bg-tertiary: #F5EFE6;
+  --foreground: #141414;
+  --text-secondary: #3A3A3A;
+  --text-muted: #6B6B6B;
+  --card-border: #E5D9C5;
+  --gold: #C59B48;
+  --gold-hover: #B8860B;
+  --gold-light: #FBF5E8;
+  --black: #141414;
 }
 
 @theme inline {
@@ -36,16 +38,16 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--graphite);
+  background: #F5EFE6;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: #C59B48;
   border-radius: 3px;
 }
 
 /* Smooth focus ring */
 *:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid #C59B48;
   outline-offset: 2px;
 }
 

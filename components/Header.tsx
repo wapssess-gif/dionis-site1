@@ -28,8 +28,8 @@ export default function Header({ onBookingOpen }: HeaderProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#1a1410]/95 backdrop-blur-md shadow-lg shadow-black/30 py-2"
-          : "bg-transparent py-4"
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-[#E5D9C5] py-2"
+          : "bg-white/80 backdrop-blur-sm py-4"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -42,10 +42,10 @@ export default function Header({ onBookingOpen }: HeaderProps) {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         >
-          <div className="w-10 h-10 rounded-full bg-[#d4a853] flex items-center justify-center group-hover:bg-[#e8c97a] transition-colors">
-            <Wine className="w-5 h-5 text-[#1a1410]" strokeWidth={1.5} />
+          <div className="w-10 h-10 rounded-full bg-[#C59B48] flex items-center justify-center group-hover:bg-[#B8860B] transition-colors">
+            <Wine className="w-5 h-5 text-white" strokeWidth={1.5} />
           </div>
-          <span className="text-2xl font-bold tracking-wide text-[#d4a853] group-hover:text-[#e8c97a] transition-colors">
+          <span className="text-2xl font-bold tracking-wide text-[#141414] group-hover:text-[#C59B48] transition-colors">
             {cafeInfo.name}
           </span>
         </a>
@@ -56,14 +56,14 @@ export default function Header({ onBookingOpen }: HeaderProps) {
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="text-[#f5ede0]/80 hover:text-[#d4a853] transition-colors font-sans text-sm tracking-wide uppercase"
+              className="text-[#3A3A3A] hover:text-[#C59B48] transition-colors font-sans text-sm tracking-wide uppercase"
             >
               {link.label}
             </button>
           ))}
           <button
             onClick={onBookingOpen}
-            className="ml-2 px-5 py-2 rounded-full bg-[#c0603a] hover:bg-[#d4a853] text-white font-sans text-sm font-semibold tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#d4a853]/20"
+            className="ml-2 px-5 py-2 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans text-sm font-semibold tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#C59B48]/20"
           >
             Забронювати стіл
           </button>
@@ -71,7 +71,7 @@ export default function Header({ onBookingOpen }: HeaderProps) {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 text-[#d4a853] hover:text-[#e8c97a] transition-colors"
+          className="md:hidden p-2 text-[#141414] hover:text-[#C59B48] transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Меню"
         >
@@ -81,12 +81,12 @@ export default function Header({ onBookingOpen }: HeaderProps) {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-[#1a1410]/98 backdrop-blur-md border-t border-[#d4a853]/20 px-4 py-6 flex flex-col gap-4">
+        <div className="md:hidden bg-white border-t border-[#E5D9C5] px-4 py-6 flex flex-col gap-4">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="text-[#f5ede0]/80 hover:text-[#d4a853] transition-colors text-left font-sans text-base tracking-wide uppercase py-1"
+              className="text-[#3A3A3A] hover:text-[#C59B48] transition-colors text-left font-sans text-base tracking-wide uppercase py-1"
             >
               {link.label}
             </button>
@@ -96,7 +96,7 @@ export default function Header({ onBookingOpen }: HeaderProps) {
               setIsOpen(false);
               onBookingOpen();
             }}
-            className="mt-2 px-5 py-3 rounded-full bg-[#c0603a] hover:bg-[#d4a853] text-white font-sans text-base font-semibold tracking-wide transition-colors"
+            className="mt-2 px-5 py-3 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans text-base font-semibold tracking-wide transition-colors"
           >
             Забронювати стіл
           </button>
