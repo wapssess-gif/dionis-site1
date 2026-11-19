@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Users, Music, Star, CalendarCheck, CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Users, Music, Star, CalendarCheck, CheckCircle2, ChevronLeft, ChevronRight, Phone, ExternalLink } from "lucide-react";
 import { banquetInfo } from "@/data/cafeData";
 
-interface BanquetProps {
-  onBookingOpen: (type: "banquet") => void;
-}
+const PHONE_NUMBER = "+380978355635";
+const PHONE_DISPLAY = "+38 (097) 835-56-35";
+const INSTAGRAM_URL = "https://www.instagram.com/dionis.cafe.bar";
+const INSTAGRAM_HANDLE = "@dionis.cafe.bar";
 
-export default function Banquet({ onBookingOpen }: BanquetProps) {
+export default function Banquet() {
   const [guests, setGuests] = useState(25);
   const [menuType, setMenuType] = useState<"standard" | "premium">("standard");
   const [activePhoto, setActivePhoto] = useState(0);
@@ -95,20 +96,13 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
                   <Users className="w-6 h-6 text-[#C59B48]" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-[#141414]">
-                    Зал до 50 гостей
-                  </h3>
-                  <p className="text-[#6B6B6B] font-sans text-sm">
-                    Весілля, ювілеї, корпоративи
-                  </p>
+                  <h3 className="text-xl font-bold text-[#141414]">Зал до 50 гостей</h3>
+                  <p className="text-[#6B6B6B] font-sans text-sm">Весілля, ювілеї, корпоративи</p>
                 </div>
               </div>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {banquetInfo.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-center gap-2 text-[#3A3A3A] font-sans text-sm"
-                  >
+                  <li key={feature} className="flex items-center gap-2 text-[#3A3A3A] font-sans text-sm">
                     <CheckCircle2 className="w-4 h-4 text-[#C59B48] shrink-0" />
                     {feature}
                   </li>
@@ -125,7 +119,7 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
             </div>
           </div>
 
-          {/* Calculator */}
+          {/* Calculator + booking contacts */}
           <div className="rounded-2xl border border-[#E5D9C5] bg-white p-8 shadow-sm">
             <h3 className="text-xl font-bold text-[#141414] mb-6 flex items-center gap-2">
               <CalendarCheck className="w-5 h-5 text-[#C59B48]" />
@@ -164,7 +158,7 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
               </div>
             </div>
 
-            <div className="mb-8">
+            <div className="mb-6">
               <label className="text-[#3A3A3A] font-sans text-sm font-medium block mb-3">
                 Тип меню
               </label>
@@ -197,20 +191,39 @@ export default function Banquet({ onBookingOpen }: BanquetProps) {
                     {guests} гостей × {selectedMenu.pricePerPerson} грн
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="text-3xl font-bold text-[#C59B48]">
-                    {totalCost.toLocaleString("uk-UA")} ₴
-                  </p>
-                </div>
+                <p className="text-3xl font-bold text-[#C59B48]">
+                  {totalCost.toLocaleString("uk-UA")} ₴
+                </p>
               </div>
             </div>
 
-            <button
-              onClick={() => onBookingOpen("banquet")}
-              className="w-full py-4 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#C59B48]/20"
-            >
-              Залишити заявку на дату
-            </button>
+            {/* Booking contacts block */}
+            <div className="border-t border-[#E5D9C5] pt-6">
+              <h4 className="font-bold text-[#141414] text-sm text-center mb-1">
+                Як забронювати дату
+              </h4>
+              <p className="text-[#6B6B6B] font-sans text-xs text-center mb-4 leading-relaxed">
+                Бронювання відбувається виключно за телефоном або в Instagram Direct
+              </p>
+              <div className="flex flex-col gap-3">
+                <a
+                  href={`tel:${PHONE_NUMBER}`}
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-sm tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#C59B48]/20"
+                >
+                  <Phone className="w-4 h-4" />
+                  Зателефонувати: {PHONE_DISPLAY}
+                </a>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full border-2 border-[#141414] text-[#141414] hover:bg-[#141414] hover:text-white font-sans font-bold text-sm tracking-wide transition-all duration-200"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Instagram {INSTAGRAM_HANDLE}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

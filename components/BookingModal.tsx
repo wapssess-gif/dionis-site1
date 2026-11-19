@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, User, Phone, Calendar, Users, MessageSquare, Wine } from "lucide-react";
+import { useEffect } from "react";
+import { X, Phone, Wine, ExternalLink } from "lucide-react";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -9,21 +9,15 @@ interface BookingModalProps {
   onClose: () => void;
 }
 
-export default function BookingModal({ isOpen, type, onClose }: BookingModalProps) {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    date: "",
-    guests: "",
-    comment: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
+const PHONE_NUMBER = "+380978355635";
+const PHONE_DISPLAY = "+38 (097) 835-56-35";
+const INSTAGRAM_URL = "https://www.instagram.com/dionis.cafe.bar";
+const INSTAGRAM_HANDLE = "@dionis.cafe.bar";
 
+export default function BookingModal({ isOpen, type, onClose }: BookingModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
-      setSubmitted(false);
-      setForm({ name: "", phone: "", date: "", guests: "", comment: "" });
     } else {
       document.body.style.overflow = "";
     }
@@ -32,19 +26,9 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
     };
   }, [isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   if (!isOpen) return null;
 
-  const title =
-    type === "banquet" ? "Заявка на банкет" : "Бронювання столика";
-  const subtitle =
-    type === "banquet"
-      ? "Залиште заявку і ми зв'яжемось для уточнення деталей"
-      : "Забронюйте столик і ми підтвердимо бронювання";
+  const title = type === "banquet" ? "Забронювати банкет" : "Забронювати столик";
 
   return (
     <div
@@ -53,17 +37,14 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
     >
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative modal-content w-full max-w-md rounded-3xl border border-[#E5D9C5] bg-white shadow-2xl shadow-black/15 overflow-hidden">
+      <div className="relative modal-content w-full max-w-sm rounded-3xl border border-[#E5D9C5] bg-white shadow-2xl shadow-black/15 overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-[#E5D9C5]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#FBF5E8] flex items-center justify-center">
               <Wine className="w-5 h-5 text-[#C59B48]" />
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-[#141414]">{title}</h2>
-              <p className="text-[#6B6B6B] font-sans text-xs mt-0.5">{subtitle}</p>
-            </div>
+            <h2 className="text-xl font-bold text-[#141414]">{title}</h2>
           </div>
           <button
             onClick={onClose}
@@ -75,113 +56,36 @@ export default function BookingModal({ isOpen, type, onClose }: BookingModalProp
 
         {/* Body */}
         <div className="p-6">
-          {submitted ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 rounded-full bg-[#FBF5E8] border border-[#E5D9C5] flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">✓</span>
-              </div>
-              <h3 className="text-xl font-bold text-[#141414] mb-2">Заявку отримано!</h3>
-              <p className="text-[#6B6B6B] font-sans text-sm mb-6">
-                Ми зателефонуємо вам найближчим часом для підтвердження.
-              </p>
-              <button
-                onClick={onClose}
-                className="px-8 py-3 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold transition-colors"
-              >
-                Закрити
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name */}
-              <div>
-                <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                  <User className="w-3.5 h-3.5 text-[#C59B48]" />
-                  Ваше ім'я *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Введіть ваше ім'я"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
-                />
-              </div>
+          <p className="text-[#3A3A3A] font-sans text-sm text-center leading-relaxed mb-6">
+            Онлайн-форм немає — бронювання відбувається{" "}
+            <strong className="text-[#141414]">виключно за телефоном</strong> або{" "}
+            <strong className="text-[#141414]">в Instagram Direct</strong>.
+            Зв'яжіться будь-яким зручним способом:
+          </p>
 
-              {/* Phone */}
-              <div>
-                <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#C59B48]" />
-                  Телефон *
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="+38 (0XX) XXX-XX-XX"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
-                />
-              </div>
+          <div className="flex flex-col gap-3">
+            <a
+              href={`tel:${PHONE_NUMBER}`}
+              className="flex items-center justify-center gap-3 w-full py-4 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#C59B48]/20"
+            >
+              <Phone className="w-5 h-5" />
+              Зателефонувати: {PHONE_DISPLAY}
+            </a>
 
-              {/* Date + Guests */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-[#C59B48]" />
-                    Дата *
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    value={form.date}
-                    onChange={(e) => setForm({ ...form, date: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
-                    style={{ colorScheme: "light" }}
-                  />
-                </div>
-                <div>
-                  <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                    <Users className="w-3.5 h-3.5 text-[#C59B48]" />
-                    Гостей *
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    min={1}
-                    max={50}
-                    placeholder="10"
-                    value={form.guests}
-                    onChange={(e) => setForm({ ...form, guests: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors"
-                  />
-                </div>
-              </div>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 w-full py-4 rounded-full border-2 border-[#141414] text-[#141414] hover:bg-[#141414] hover:text-white font-sans font-bold text-base tracking-wide transition-all duration-200"
+            >
+              <ExternalLink className="w-5 h-5" />
+              Instagram {INSTAGRAM_HANDLE}
+            </a>
+          </div>
 
-              {/* Comment */}
-              <div>
-                <label className="text-[#3A3A3A] font-sans text-sm font-medium flex items-center gap-1.5 mb-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-[#C59B48]" />
-                  Коментар
-                </label>
-                <textarea
-                  rows={3}
-                  placeholder="Побажання, привід, час бронювання..."
-                  value={form.comment}
-                  onChange={(e) => setForm({ ...form, comment: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#FAF6F0] border border-[#E5D9C5] text-[#141414] font-sans text-sm placeholder-[#6B6B6B] focus:border-[#C59B48] focus:bg-white outline-none transition-colors resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-4 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-[#C59B48]/20 mt-2"
-              >
-                {type === "banquet" ? "Залишити заявку" : "Забронювати стіл"}
-              </button>
-            </form>
-          )}
+          <p className="text-[#6B6B6B] font-sans text-xs text-center mt-5">
+            Щодня: 11:00 – 22:00
+          </p>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { Truck, Package, Clock, Minus, Plus, Trash2, ShoppingBag, X } from "lucide-react";
+import { useState } from "react";
+import { Truck, Package, Clock, Minus, Plus, Trash2, NotebookPen, X, Phone, Copy, Check, ExternalLink } from "lucide-react";
 import { deliveryInfo, type CartEntry } from "@/data/cafeData";
 
 interface DeliveryProps {
@@ -11,6 +12,10 @@ interface DeliveryProps {
   onClearCart: () => void;
 }
 
+const PHONE_NUMBER = "+380978355635";
+const PHONE_DISPLAY = "+38 (097) 835-56-35";
+const INSTAGRAM_URL = "https://www.instagram.com/dionis.cafe.bar";
+
 export default function Delivery({
   cartItems,
   onAddToCart,
@@ -18,10 +23,26 @@ export default function Delivery({
   onRemoveAllFromCart,
   onClearCart,
 }: DeliveryProps) {
+  const [copied, setCopied] = useState(false);
+
   const totalSum = cartItems.reduce((sum, e) => sum + e.item.price * e.qty, 0);
-  const deliveryCost =
-    totalSum >= deliveryInfo.freeDeliveryFrom ? 0 : deliveryInfo.deliveryPrice;
-  const grandTotal = totalSum + deliveryCost;
+
+  const copyList = async () => {
+    const lines = cartItems.map(
+      ({ item, qty }) => `• ${item.name} × ${qty} — ${item.price * qty} ₴`
+    );
+    const text =
+      `🍽 Мій список страв — Кафе «Діоніс»\n\n` +
+      `${lines.join("\n")}\n\n` +
+      `Разом: ${totalSum} ₴`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      // fallback: ignore
+    }
+  };
 
   return (
     <section id="delivery" className="py-20 bg-[#FAF6F0]">
@@ -61,21 +82,15 @@ export default function Delivery({
                   <ul className="space-y-2 font-sans text-sm text-[#3A3A3A]">
                     <li className="flex justify-between">
                       <span>Мінімальне замовлення</span>
-                      <strong className="text-[#141414]">
-                        {deliveryInfo.minOrder} ₴
-                      </strong>
+                      <strong className="text-[#141414]">{deliveryInfo.minOrder} ₴</strong>
                     </li>
                     <li className="flex justify-between">
                       <span>Вартість доставки</span>
-                      <strong className="text-[#141414]">
-                        {deliveryInfo.deliveryPrice} ₴
-                      </strong>
+                      <strong className="text-[#141414]">{deliveryInfo.deliveryPrice} ₴</strong>
                     </li>
                     <li className="flex justify-between">
                       <span>Безкоштовна від</span>
-                      <strong className="text-[#C59B48]">
-                        {deliveryInfo.freeDeliveryFrom} ₴
-                      </strong>
+                      <strong className="text-[#C59B48]">{deliveryInfo.freeDeliveryFrom} ₴</strong>
                     </li>
                   </ul>
                 ),
@@ -87,14 +102,10 @@ export default function Delivery({
                   <div className="font-sans text-sm text-[#3A3A3A]">
                     <p>
                       Знижка{" "}
-                      <strong className="text-[#C59B48]">
-                        {deliveryInfo.selfPickupDiscount}%
-                      </strong>{" "}
+                      <strong className="text-[#C59B48]">{deliveryInfo.selfPickupDiscount}%</strong>{" "}
                       при самовивозі. Замовлення готове за 30–45 хвилин.
                     </p>
-                    <p className="mt-2 text-[#6B6B6B]">
-                      вул. Січових Стрільців, 58
-                    </p>
+                    <p className="mt-2 text-[#6B6B6B]">вул. Січових Стрільців, 58</p>
                   </div>
                 ),
               },
@@ -118,10 +129,7 @@ export default function Delivery({
                 ),
               },
             ].map(({ icon: Icon, title, content }) => (
-              <div
-                key={title}
-                className="rounded-2xl border border-[#E5D9C5] bg-white p-6 shadow-sm"
-              >
+              <div key={title} className="rounded-2xl border border-[#E5D9C5] bg-white p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-full bg-[#FBF5E8] flex items-center justify-center">
                     <Icon className="w-5 h-5 text-[#C59B48]" />
@@ -133,12 +141,12 @@ export default function Delivery({
             ))}
           </div>
 
-          {/* Cart */}
+          {/* My order list */}
           <div className="rounded-2xl border border-[#C59B48]/40 bg-white p-6 h-fit shadow-sm">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold text-[#141414] flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[#C59B48]" />
-                Мій кошик
+                <NotebookPen className="w-5 h-5 text-[#C59B48]" />
+                Мій список страв
                 {cartItems.length > 0 && (
                   <span className="ml-1 w-5 h-5 rounded-full bg-[#C59B48] text-white text-xs flex items-center justify-center font-sans">
                     {cartItems.length}
@@ -156,19 +164,26 @@ export default function Delivery({
               )}
             </div>
 
+            {/* Explanation banner */}
+            <div className="rounded-xl bg-[#FBF5E8] border border-[#E5D9C5] px-4 py-3 mb-5">
+              <p className="text-[#3A3A3A] font-sans text-xs leading-relaxed">
+                <strong className="text-[#141414]">Онлайн-оформлення на сайті немає</strong> — зберіть
+                бажані страви тут як зручну нотатку, щоб зателефонувати нам або написати в Instagram
+                вже з готовим списком.
+              </p>
+            </div>
+
             {cartItems.length === 0 ? (
-              <div className="text-center py-12">
-                <ShoppingBag className="w-12 h-12 text-[#E5D9C5] mx-auto mb-3" />
-                <p className="text-[#6B6B6B] font-sans text-sm">
-                  Кошик порожній
-                </p>
+              <div className="text-center py-10">
+                <NotebookPen className="w-12 h-12 text-[#E5D9C5] mx-auto mb-3" />
+                <p className="text-[#6B6B6B] font-sans text-sm">Список порожній</p>
                 <p className="text-[#6B6B6B]/60 font-sans text-xs mt-1">
                   Додайте страви з меню вище
                 </p>
               </div>
             ) : (
               <>
-                <div className="space-y-3 mb-6 max-h-72 overflow-y-auto pr-1">
+                <div className="space-y-3 mb-5 max-h-64 overflow-y-auto pr-1">
                   {cartItems.map(({ item, qty }) => (
                     <div
                       key={item.id}
@@ -189,9 +204,7 @@ export default function Delivery({
                         <p className="text-[#141414] font-sans text-sm font-semibold truncate">
                           {item.name}
                         </p>
-                        <p className="text-[#C59B48] font-sans text-sm">
-                          {item.price * qty} ₴
-                        </p>
+                        <p className="text-[#C59B48] font-sans text-sm">{item.price * qty} ₴</p>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
                         <button
@@ -200,7 +213,9 @@ export default function Delivery({
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="text-[#141414] font-bold font-sans text-sm w-5 text-center">{qty}</span>
+                        <span className="text-[#141414] font-bold font-sans text-sm w-5 text-center">
+                          {qty}
+                        </span>
                         <button
                           onClick={() => onAddToCart(item)}
                           className="w-6 h-6 rounded-full bg-white border border-[#E5D9C5] hover:border-[#C59B48] hover:bg-[#FBF5E8] text-[#6B6B6B] hover:text-[#C59B48] flex items-center justify-center transition-colors"
@@ -218,39 +233,55 @@ export default function Delivery({
                   ))}
                 </div>
 
-                {/* Summary */}
-                <div className="border-t border-[#E5D9C5] pt-4 space-y-2 mb-5">
-                  <div className="flex justify-between text-[#6B6B6B] font-sans text-sm">
-                    <span>Сума замовлення</span>
-                    <span>{totalSum} ₴</span>
-                  </div>
-                  <div className="flex justify-between font-sans text-sm">
-                    <span className="text-[#6B6B6B]">Доставка</span>
-                    <span
-                      className={
-                        deliveryCost === 0 ? "text-[#4A7A3A] font-semibold" : "text-[#6B6B6B]"
-                      }
-                    >
-                      {deliveryCost === 0
-                        ? "Безкоштовно 🎉"
-                        : `${deliveryCost} ₴`}
-                    </span>
-                  </div>
+                {/* Total */}
+                <div className="border-t border-[#E5D9C5] pt-4 mb-5">
                   <div className="flex justify-between font-bold">
                     <span className="text-[#141414]">Разом</span>
-                    <span className="text-[#C59B48] text-xl">{grandTotal} ₴</span>
+                    <span className="text-[#C59B48] text-xl">{totalSum} ₴</span>
                   </div>
-                  {totalSum < deliveryInfo.freeDeliveryFrom && (
-                    <p className="text-[#6B6B6B] font-sans text-xs">
-                      Ще {deliveryInfo.freeDeliveryFrom - totalSum} ₴ до
-                      безкоштовної доставки
-                    </p>
-                  )}
                 </div>
 
-                <button className="w-full py-4 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-base tracking-wide transition-all duration-200">
-                  Оформити замовлення
-                </button>
+                {/* Action buttons */}
+                <div className="flex flex-col gap-3">
+                  <button
+                    onClick={copyList}
+                    className={`flex items-center justify-center gap-2 w-full py-3 rounded-full font-sans font-semibold text-sm tracking-wide transition-all duration-200 border-2 ${
+                      copied
+                        ? "border-[#4A7A3A] bg-[#4A7A3A]/10 text-[#4A7A3A]"
+                        : "border-[#E5D9C5] bg-white text-[#3A3A3A] hover:border-[#C59B48] hover:text-[#C59B48]"
+                    }`}
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-4 h-4" />
+                        Список скопійовано!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4" />
+                        Скопіювати список
+                      </>
+                    )}
+                  </button>
+
+                  <a
+                    href={`tel:${PHONE_NUMBER}`}
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-[#141414] hover:bg-[#C59B48] text-white font-sans font-bold text-sm tracking-wide transition-all duration-200"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Зателефонувати: {PHONE_DISPLAY}
+                  </a>
+
+                  <a
+                    href={INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-full border-2 border-[#141414] text-[#141414] hover:bg-[#141414] hover:text-white font-sans font-bold text-sm tracking-wide transition-all duration-200"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Написати в Instagram
+                  </a>
+                </div>
               </>
             )}
           </div>

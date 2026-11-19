@@ -55,7 +55,7 @@ export default function Home() {
         onBookingOpen={() => openModal("booking")}
         onBanquetScroll={scrollToBanquet}
       />
-      <Banquet onBookingOpen={openModal} />
+      <Banquet />
       <Menu cartItems={cartItems} onAddToCart={addToCart} onRemoveFromCart={removeFromCart} />
       <Delivery
         cartItems={cartItems}
